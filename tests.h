@@ -19,6 +19,7 @@
  void printPreOrderTest();
  void printPostOrderTest();
  void testGetSize();
+ void runAllTests();
  
  //you write more tests, at least one test for each operation
  

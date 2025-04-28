@@ -1,0 +1,30 @@
+name: Build Project
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-test-lint-package:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y g++ make python3-pip docker.io
+
+    - name: Build
+      run: make
+
+    - name: Run tests
+      run: ./treeTester.out
+
+    - name: Install cpplint
+      run: pip3 install cpplint
+
+    - name: Lint
+      run: cpplint src/*.cpp src/*.h
+
+    - name: Build Docker image
+      run: docker build -t bst-ci-cd .

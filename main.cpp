@@ -18,19 +18,22 @@
      std::cout << tree.root->value << std::endl;
      
  
-     
-     testCreateTree();
-     testInsert();
-     testRemove();
-     testFind();
-     testFindMax();
-     testFindMin();
-     printInOrderTest();
-     printPreOrderTest();
-     printPostOrderTest();
-     testGetSize();
+     runAllTests();
  
      return 0;
+ }
+
+ void runAllTests(){
+    testCreateTree();
+    testInsert();
+    testRemove();
+    testFind();
+    testFindMax();
+    testFindMin();
+    printInOrderTest();
+    printPreOrderTest();
+    printPostOrderTest();
+    testGetSize();
  }
  
  void testCreateTree(){
