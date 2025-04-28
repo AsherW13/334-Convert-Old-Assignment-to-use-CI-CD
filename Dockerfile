@@ -5,7 +5,7 @@ RUN apt-get update && \
 
 WORKDIR /app
 
-COPY src/ ./src/
+COPY . .
 COPY Makefile ./
 
 RUN make
