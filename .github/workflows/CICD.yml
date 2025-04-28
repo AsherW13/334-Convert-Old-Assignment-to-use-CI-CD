@@ -11,10 +11,16 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Install dependencies
-      run: sudo apt-get update && sudo apt-get install -y g++ make python3-pip docker.io
+    - name: Install C++ dependencies and Python for linting
+      run: sudo apt-get update && sudo apt-get install -y g++ make python3-pip
 
-    - name: Build
+    - name: Install Docker
+      run: |
+        curl -fsSL https://get.docker.com -o get-docker.sh
+        sudo sh get-docker.sh
+        sudo usermod -aG docker $USER
+
+    - name: Build project
       run: make
 
     - name: Run tests
@@ -23,7 +29,7 @@ jobs:
     - name: Install cpplint
       run: pip3 install cpplint
 
-    - name: Lint
+    - name: Lint code
       run: cpplint src/*.cpp src/*.h
 
     - name: Build Docker image
