@@ -12,7 +12,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Install C++ dependencies and Python for linting
-      run: sudo apt-get update && sudo apt-get install -y g++ make python3-pip
+      run: sudo apt-get update && sudo apt-get install -y g++ make python3-pip dpkg-dev
 
     - name: Install Docker
       run: |
@@ -30,7 +30,16 @@ jobs:
       run: pip3 install cpplint
 
     - name: Lint code
-      run: cpplint src/*.cpp src/*.h
+      run: cpplint *.cpp *.h
 
     - name: Build Docker image
       run: docker build -t bst-ci-cd .
+
+    - name: Build .deb package
+      run: make deb
+
+    - name: Upload .deb artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: tree-tester-deb
+        path: tree-tester_1.0_amd64.deb
